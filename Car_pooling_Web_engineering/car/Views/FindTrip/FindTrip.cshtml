@@ -1,0 +1,86 @@
+﻿@model IEnumerable<car.Models.Trip>
+
+@{
+    ViewBag.Title = "Find a trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Find a trip</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.startingAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startingZip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startingCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destinationAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destinationZip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destinationCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.driverID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numberOfSeats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.passengerID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.startingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startingZip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startingCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationZip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.driverID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numberOfSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passengerID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TripID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TripID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TripID })
+        </td>
+    </tr>
+}
+
+</table>
