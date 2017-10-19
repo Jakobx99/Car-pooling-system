@@ -7,9 +7,7 @@
 
 <h2>TripList</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -33,15 +31,11 @@
         <th>
             @Html.DisplayNameFor(model => model.time)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.driverID)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.numberOfSeats)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
+
         <th></th>
     </tr>
 
@@ -49,6 +43,7 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.startingAddress)
+
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.startingZip)
@@ -68,21 +63,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.time)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.driverID)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.numberOfSeats)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TripID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TripID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TripID })
-        </td>
+
+
     </tr>
+
 }
+
 
 </table>

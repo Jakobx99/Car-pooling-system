@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Car_with_database.Models
 {
     using System;
@@ -16,13 +18,20 @@ namespace Car_with_database.Models
     {
         public int TripID { get; set; }
         public string startingAddress { get; set; }
+        [Required]
         public string startingZip { get; set; }
+        [Required]
         public string startingCity { get; set; }
         public string destinationAddress { get; set; }
+        [Required]
         public string destinationZip { get; set; }
+        [Required]
         public string destinationCity { get; set; }
-        public System.DateTime time { get; set; }
+        [Required]
+        public Nullable<System.DateTime> time { get; set; }
+
         public int driverID { get; set; }
+        [Required]
         public int numberOfSeats { get; set; }
         public Nullable<int> UserID { get; set; }
     

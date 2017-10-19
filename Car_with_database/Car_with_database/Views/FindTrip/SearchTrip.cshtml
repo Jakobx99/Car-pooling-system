@@ -1,8 +1,77 @@
-﻿
+﻿@model Car_with_database.Models.Trip
 @{
     ViewBag.Title = "SearchTrip";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>SearchTrip</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        <div class="form-group">
+            
+            <div class="col-md-10">
+                <label for="saddress">Starting address</label>
+                <input type="text" name="saddress" id="saddress"><br>
+            </div>
+       
+
+        
+           
+            <div class="col-md-10">
+                <label for="szip">Starting zip</label>
+                <input type="text" name="szip" id="szip"><br>
+            </div>
+        
+
+        
+            
+            <div class="col-md-10">
+                <label for="scity">Starting city</label>
+                <input type="text" name="scity" id="scity"><br>
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <div class="col-md-10">
+                <label for="daddress">Destination address</label>
+                <input type="text" name="daddress" id="daddress"><br>
+            </div>
+        
+
+        
+            
+            <div class="col-md-10">
+                <label for="dzip">Destination zip</label>
+                <input type="text" name="dzip" id="dzip"><br>
+            </div>
+        
+
+        
+            
+            <div class="col-md-10">
+                <label for="dcity">Destination city</label>
+                <input type="text" name="dcity" id="dcity"><br>
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+            <div class="col-md-10">
+                <label for="time">Start time</label>
+                <input type="datetime-local" name="time" id="time" required><br>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" formaction='@Url.Action("TripList", "FindTrip")'/>
+            </div>
+        </div>
+    </div>}
 
