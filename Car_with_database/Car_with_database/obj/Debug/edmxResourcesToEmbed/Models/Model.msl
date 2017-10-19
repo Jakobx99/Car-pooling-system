@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CarDatabaseModelStoreContainer" CdmEntityContainer="CarDatabaseEntities1">
+    <EntitySetMapping Name="Trip">
+      <EntityTypeMapping TypeName="CarDatabaseModel.Trip">
+        <MappingFragment StoreEntitySet="Trip">
+          <ScalarProperty Name="TripID" ColumnName="TripID" />
+          <ScalarProperty Name="startingAddress" ColumnName="startingAddress" />
+          <ScalarProperty Name="startingZip" ColumnName="startingZip" />
+          <ScalarProperty Name="startingCity" ColumnName="startingCity" />
+          <ScalarProperty Name="destinationAddress" ColumnName="destinationAddress" />
+          <ScalarProperty Name="destinationZip" ColumnName="destinationZip" />
+          <ScalarProperty Name="destinationCity" ColumnName="destinationCity" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="driverID" ColumnName="driverID" />
+          <ScalarProperty Name="numberOfSeats" ColumnName="numberOfSeats" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="CarDatabaseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
