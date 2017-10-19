@@ -26,12 +26,17 @@ namespace Car_with_database.Controllers
             { 
             db.Trip.Add(result);
             db.SaveChanges();
-            return RedirectToAction("SpecificTrip", "FindTrip", result);
+            return RedirectToAction("SpecificTrip", result);
             }
             else
             {
                 return View("PlanTrip");
             }
+        }
+
+        public ActionResult SpecificTrip(Trip trip)
+        {
+            return View(trip);
         }
     }
 }

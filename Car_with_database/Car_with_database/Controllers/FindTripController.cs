@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,16 +21,34 @@ namespace Car_with_database.Controllers
         }
 
 
-        public ActionResult SpecificTrip(Trip trip)
+        public ActionResult SpecificTrip(Trip t)
         {
-            return View(trip);
+            return View(t);
+        }
+
+        [HttpPost]
+        public ActionResult SpecificTrip(string id)
+        {
+            int i = Convert.ToInt32(id);
+            var result = from m in db.Trip
+                         where m.TripID == i
+                         select m;
+            Trip t = result.First();
+
+            t.numberOfSeats = t.numberOfSeats - 1;
+             //trip.UserID = sesson thing
+             //user.trip.add(trip)
+            db.Trip.AddOrUpdate(t);
+            db.SaveChanges();
+
+            return RedirectToAction("SpecificTrip", "FindTrip", t);
         }
 
         
         public ActionResult TripList(string saddress, string szip, string scity, string daddress, string dzip, string dcity, DateTime time)
         {
             List<Trip> tlist = new List<Trip>();
-
+            
 
             if (!saddress.IsNullOrWhiteSpace())
             {

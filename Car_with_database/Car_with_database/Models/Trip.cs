@@ -28,7 +28,7 @@ namespace Car_with_database.Models
         [Required]
         public string destinationCity { get; set; }
         [Required]
-        public Nullable<System.DateTime> time { get; set; }
+        public System.DateTime time { get; set; }
 
         public int driverID { get; set; }
         [Required]

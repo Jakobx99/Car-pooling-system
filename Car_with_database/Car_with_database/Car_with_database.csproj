@@ -244,6 +244,7 @@
     <Content Include="Views\FindTrip\SpecificTrip.cshtml" />
     <Content Include="Views\PlanTrip\PlanTrip.cshtml" />
     <Content Include="Views\Account\AccountDetails.cshtml" />
+    <Content Include="Views\PlanTrip\SpecificTrip.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
