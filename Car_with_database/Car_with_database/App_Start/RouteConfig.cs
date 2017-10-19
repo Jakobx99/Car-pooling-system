@@ -49,6 +49,11 @@ namespace Car_with_database
                 url: "{controller}/{action}",
                 defaults: new { controller = "PlanTrip", action = "PlanTrip", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "AccountDetails",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Account", action = "AccountDetails", id = UrlParameter.Optional }
+            );
 
 
         }
