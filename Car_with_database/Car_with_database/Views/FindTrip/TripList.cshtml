@@ -6,35 +6,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>TripList</h2>
+<h2>Search results</h2>
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.startingAddress)
+            <label>Starting address</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.startingZip)
+            <label>Starting zip</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.startingCity)
+            <label>Starting city</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.destinationAddress)
+            <label>Destination address</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.destinationZip)
+            <label>Destination zip</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.destinationCity)
+            <label>Destination city</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.time)
+            <label>Date and time</label>
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.numberOfSeats)
+            <label>Seats</label>
         </th>
 
         <th></th>
@@ -69,7 +69,7 @@
             @Html.DisplayFor(modelItem => item.numberOfSeats)
         </td>
         <td>
-            @Html.ActionLink("Select", "SpecificTrip", item);
+            @Html.ActionLink("Book seat", "SpecificTrip", item);
 
         </td>
 

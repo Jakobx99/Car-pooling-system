@@ -6,18 +6,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SpecificTrip</h2>
+<h2>Book a seat</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-
-        <h4>Trip</h4>
         <hr/>
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.startingAddress)
+                <label>Starting address</label>
             </dt>
 
             <dd>
@@ -25,7 +23,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.startingZip)
+                <label>Starting Zip</label>
             </dt>
 
             <dd>
@@ -33,7 +31,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.startingCity)
+                <label>Starting city</label>
             </dt>
 
             <dd>
@@ -41,7 +39,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.destinationAddress)
+                <label>Destination address</label>
             </dt>
 
             <dd>
@@ -49,7 +47,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.destinationZip)
+                <label>Destination zip</label>
             </dt>
 
             <dd>
@@ -57,7 +55,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.destinationCity)
+                <label>Destination city</label>
             </dt>
 
             <dd>
@@ -65,7 +63,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.time)
+                <label>Date and time</label>
             </dt>
 
             <dd>
@@ -73,13 +71,12 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.numberOfSeats)
+                <label>Number of seats left</label>
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.numberOfSeats)
             </dd>
-
 
         </dl>
         <div hidden="">
@@ -87,10 +84,29 @@
             
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Book seat" class="btn btn-default" formaction='@Url.Action("SpecificTrip", "FindTrip")'/>
+    if ((bool) Session["LoggedIn"] && Model.numberOfSeats > 0)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Book seat" class="btn btn-default" formaction='@Url.Action("SpecificTrip", "FindTrip")'/>
+            </div>
         </div>
-    </div>
+    }
+    else if ((bool) Session["LoggedIn"] && Model.numberOfSeats == 0)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="No more seats" class="btn btn-default" disabled=""/>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Log in to book a seat" class="btn btn-default" disabled="disabled"/>
+            </div>
+        </div>
+    }
+
 }
