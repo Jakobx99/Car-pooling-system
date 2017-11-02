@@ -1,109 +1,241 @@
-﻿@model Car_with_database.Models.User
-
+﻿
+@using Car_with_database.Models
 @{
     ViewBag.Title = "EditAccount";
+    var tripList = ViewBag.trip as List<Trip>;
+    User user = ((User)Session["User"]);
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}                                                 a
+<body>
+    <div class="container">
+        <h2>Edit Account</h2>
+        <table>
+            <tr>
+                <th>Firstname: </th>
+                <td>@user.firstname</td>
+                <td>
+                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#changeFirstName">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th>Lastname: </th>
+                <td>@user.lastName</td>
+                <td>
+                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#changeLastName">
+                        Edit
+                    </button>
+                </td>
+            </tr>
 
-<h2>EditAccount</h2>
+            <tr>
+                <th>Password: </th>
+                <td>********</td>
+                <td>
+                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#changePassword">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th>Email: </th>
+                <td>@user.email</td>
+                <td>
+                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#changeEmail">
+                        Edit
+                    </button>
+                </td>
+            </tr>
 
+        </table>
+    </div>
+    <div class="container">
+        <h3>Your Trips</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Trip time</th>
+                    <th>Starting address</th>
+                    <th>Destination City</th>
+                    <th>Destination Address</th>
+                    <th>Destination Zip</th>
+                    <th>Role</th>
+                    <th>Free seats</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (tripList != null)
+                    {
+                        foreach (var trip in tripList)
+                        {
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.UserID)
+                            <tr onclick="location.href = '@(Url.Action("SpecificTrip", "FindTrip", new {tripID = trip.TripID}))'">
+                                <td>
+                                    @Html.DisplayFor(time => trip.time)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(startadd => trip.startingAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(destcit => trip.destinationCity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(destadd => trip.destinationAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(zip => trip.destinationZip)
+                                </td>
+                                @{
+                                    if (trip.UserID == user.UserID)
+                                    {
+                                        <td>
+                                             Driver
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Passenger
+                                        </td>
+                                    }
+                                }
+                                <td>
+                                    @Html.DisplayFor(seats => trip.numberOfSeats)
+                                </td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                            </tr>
+
+                        }
+                    }
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+<div class="modal fade" id="changeFirstName" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change firstname</h4>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.isDriver, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isDriver)
-                    @Html.ValidationMessageFor(model => model.isDriver, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.phoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.phoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="newFirstname">New Firstname</label>
+                        <input type="text" class="form-control" id="newFirstname" name="newFirstname" placeholder="Firstname" />
+                    </div>
+                    <button type="submit" class="btn btn-default" formaction='@Url.Action("EditAccountInfo", "Account")'>
+                        Submit
+                    </button>
+                </form>
             </div>
         </div>
     </div>
-}
+</div>
+    
+<div class="modal fade" id="changeLastName" role="dialog">
+    <div class="modal-dialog">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change lastname</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="newLastname">New Lastname</label>
+                        <input type="text" class="form-control" id="newLastname" name="newLastname" placeholder="Lastname" />
+                    </div>
+                    <button type="submit" class="btn btn-default" formaction='@Url.Action("EditAccountInfo", "Account")'>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<div class="modal fade" id="changePassword" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change password</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="newPassword">New password</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="repeatPassword">Repeat password</label>
+                            <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="Password" />
+                        </div>
+                        <button type="submit" class="btn btn-default" formaction='@Url.Action("EditAccountInfo", "Account")'>
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div class="modal fade" id="changeEmail" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change email</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="newEmail">New email</label>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="Email" />
+                    </div>
+                    <button type="submit" class="btn btn-default" formaction='@Url.Action("EditAccountInfo", "Account")'>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changeEmail" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change email</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="newEmail">New email</label>
+                        <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="Email" />
+                    </div>
+                    <button type="submit" class="btn btn-default" formaction='@Url.Action("EditAccountInfo", "Account")'>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
