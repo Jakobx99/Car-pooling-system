@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "LoginPage";
+}
+@model Car_with_database.Models.User
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="../">Home</a> <span class="divider"></span>
+                </li>
+                <li class="active">
+                    Log in
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-4">
+                    <h2>
+                        Welcome to CarPooling
+                    </h2>
+                    <p>
+                        Lets reduce some CO2 by driving together!
+                    </p>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">
+                                Email address
+                            </label>
+                            <input class="form-control" id="exampleInputEmail1" type="text" name="Username" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">
+                                Password
+                            </label>
+                            <input class="form-control" id="exampleInputPassword1" type="password" name="Password" />
+                            @Html.ValidationMessageFor(model => model.password, "Invalid username or password", new { @class = "text-danger" })
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="termsofservice" /> <a href="#">I agree to terms of service »</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-success" formaction='@Url.Action("LoginScript", "LoginScript")'>
+                            Log in
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

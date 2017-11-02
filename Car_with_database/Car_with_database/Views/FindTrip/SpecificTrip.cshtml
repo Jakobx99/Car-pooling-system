@@ -1,0 +1,96 @@
+﻿@using Car_with_database.Models
+@model Car_with_database.Models.Trip
+
+@{
+    ViewBag.Title = "SpecificTrip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SpecificTrip</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <h4>Trip</h4>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.startingAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.startingAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.startingZip)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.startingZip)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.startingCity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.startingCity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.destinationAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.destinationAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.destinationZip)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.destinationZip)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.destinationCity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.destinationCity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.time)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.time)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.numberOfSeats)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.numberOfSeats)
+            </dd>
+
+
+        </dl>
+        <div hidden="">
+            <input type="text" name="id" id="id" value ="@Model.TripID" />
+            
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Book seat" class="btn btn-default" formaction='@Url.Action("SpecificTrip", "FindTrip")'/>
+        </div>
+    </div>
+}

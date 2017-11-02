@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Car_with_database.Models.Trip>
+
+@{
+    ViewBag.Title = "TripList";
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TripList</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.startingAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startingZip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.startingCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destinationAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destinationZip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.destinationCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.time)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.numberOfSeats)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.startingAddress)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startingZip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.startingCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationZip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.numberOfSeats)
+        </td>
+        <td>
+            @Html.ActionLink("Select", "SpecificTrip", item);
+
+        </td>
+
+    </tr>
+
+}
+
+
+</table>
