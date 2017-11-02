@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,8 @@ namespace Car_with_database.Controllers
         // GET: PlanTrip
         public ActionResult PlanTrip()
         {
+            Session["currentMethod"] = "PlanTrip";
+            Session["currentController"] = "PlanTrip";
             return View();
         }
 
@@ -19,12 +22,18 @@ namespace Car_with_database.Controllers
         public ActionResult PlanTrip(Trip trip)
         {
             CarDatabaseEntities1 db = new CarDatabaseEntities1();
+            Session["currentMethod"] = "PlanTrip";
+            Session["currentController"] = "PlanTrip";
 
             Trip result = trip;
-            result.driverID = 1;
+            User u = (User) Session["User"];
+            result.UserID = u.UserID;
+            u.Trip.Add(result);
+
             if(ModelState.IsValid)
             { 
             db.Trip.Add(result);
+            db.User.AddOrUpdate(u);
             db.SaveChanges();
             return RedirectToAction("SpecificTrip", result);
             }
@@ -36,6 +45,8 @@ namespace Car_with_database.Controllers
 
         public ActionResult SpecificTrip(Trip trip)
         {
+            Session["currentMethod"] = "SpecificTrip";
+            Session["currentController"] = "PlanTrip";
             return View(trip);
         }
     }

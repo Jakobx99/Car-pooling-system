@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Car_with_database.Models;
+
 
 namespace Car_with_database.Controllers
 {
@@ -10,6 +12,10 @@ namespace Car_with_database.Controllers
     {
         public ActionResult Index()
         {
+            Session["currentMethod"] = "Index";
+            Session["currentController"] = "Home";
+
+
             return View();
         }
     }

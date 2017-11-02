@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CarDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CarDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Trip">
           <Key>
             <PropertyRef Name="TripID" />
@@ -17,9 +17,9 @@
           <Property Name="destinationZip" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="destinationCity" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="time" Type="datetime" Nullable="false" />
-          <Property Name="driverID" Type="int" Nullable="false" />
           <Property Name="numberOfSeats" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" />
+          <Property Name="Passengers" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -56,47 +56,54 @@
             <End Role="Trip" EntitySet="Trip" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CarDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CarDatabaseEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Trip" EntityType="CarDatabaseModel.Trip" />
+          <EntitySet Name="User" EntityType="CarDatabaseModel.User" />
+          <AssociationSet Name="UserID" Association="CarDatabaseModel.UserID">
+            <End Role="User" EntitySet="User" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Trip">
           <Key>
             <PropertyRef Name="TripID" />
           </Key>
           <Property Name="TripID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="startingAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="startingZip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="startingCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startingAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="startingZip" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="startingCity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="destinationAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="destinationZip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="destinationCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="destinationZip" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="destinationCity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="driverID" Type="Int32" Nullable="false" />
           <Property Name="numberOfSeats" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.UserID" FromRole="Trip" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="CarDatabaseModel.UserID" FromRole="Trip" ToRole="User" />
+          <Property Name="Passengers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isDriver" Type="Boolean" Nullable="false" />
           <Property Name="phoneNumber" Type="Int32" Nullable="false" />
           <Property Name="Rating" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Trip" Relationship="Self.UserID" FromRole="User" ToRole="Trip" />
+          <NavigationProperty Name="Trip" Relationship="CarDatabaseModel.UserID" FromRole="User" ToRole="Trip" />
         </EntityType>
         <Association Name="UserID">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Trip" Type="Self.Trip" Multiplicity="*" />
+          <End Type="CarDatabaseModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="CarDatabaseModel.Trip" Role="Trip" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -106,14 +113,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CarDatabaseEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Trip" EntityType="Self.Trip" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="UserID" Association="Self.UserID">
-            <End Role="User" EntitySet="User" />
-            <End Role="Trip" EntitySet="Trip" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -123,33 +122,33 @@
           <EntitySetMapping Name="Trip">
             <EntityTypeMapping TypeName="CarDatabaseModel.Trip">
               <MappingFragment StoreEntitySet="Trip">
-                <ScalarProperty Name="TripID" ColumnName="TripID" />
-                <ScalarProperty Name="startingAddress" ColumnName="startingAddress" />
-                <ScalarProperty Name="startingZip" ColumnName="startingZip" />
-                <ScalarProperty Name="startingCity" ColumnName="startingCity" />
-                <ScalarProperty Name="destinationAddress" ColumnName="destinationAddress" />
-                <ScalarProperty Name="destinationZip" ColumnName="destinationZip" />
-                <ScalarProperty Name="destinationCity" ColumnName="destinationCity" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="driverID" ColumnName="driverID" />
-                <ScalarProperty Name="numberOfSeats" ColumnName="numberOfSeats" />
+                <ScalarProperty Name="Passengers" ColumnName="Passengers" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="numberOfSeats" ColumnName="numberOfSeats" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="destinationCity" ColumnName="destinationCity" />
+                <ScalarProperty Name="destinationZip" ColumnName="destinationZip" />
+                <ScalarProperty Name="destinationAddress" ColumnName="destinationAddress" />
+                <ScalarProperty Name="startingCity" ColumnName="startingCity" />
+                <ScalarProperty Name="startingZip" ColumnName="startingZip" />
+                <ScalarProperty Name="startingAddress" ColumnName="startingAddress" />
+                <ScalarProperty Name="TripID" ColumnName="TripID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="CarDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="isDriver" ColumnName="isDriver" />
-                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

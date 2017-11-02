@@ -16,12 +16,16 @@ namespace Car_with_database.Controllers
         // GET: FindTrip
         public ActionResult SearchTrip()
         {
+            Session["currentMethod"] = "SearchTrip";
+            Session["currentController"] = "FindTrip";
             return View();
         }
 
 
         public ActionResult SpecificTrip(Trip t)
         {
+            Session["currentMethod"] = "SpecificTrip";
+            Session["currentController"] = "FindTrip";
             return View(t);
         }
 
@@ -29,6 +33,9 @@ namespace Car_with_database.Controllers
         public ActionResult SpecificTrip(string id)
         {
             CarDatabaseEntities1 db = new CarDatabaseEntities1();
+            Session["currentMethod"] = "SpecificTrip";
+            Session["currentController"] = "FindTrip";
+            User u = (User)Session["User"];
 
             int i = Convert.ToInt32(id);
             var result = from m in db.Trip
@@ -37,9 +44,15 @@ namespace Car_with_database.Controllers
             Trip t = result.First();
 
             t.numberOfSeats = t.numberOfSeats - 1;
-             //trip.UserID = sesson thing
-             //user.trip.add(trip)
+
+            List<string> passengerList = Listconversion.ConvertToList(t.Passengers);
+            passengerList.Add(u.UserID.ToString());
+            string passengers = Listconversion.Converttostring(passengerList);
+            t.Passengers = passengers;
+            
+            u.Trip.Add(t);
             db.Trip.AddOrUpdate(t);
+            db.User.AddOrUpdate(u);
             db.SaveChanges();
 
             return RedirectToAction("SpecificTrip", "FindTrip", t);
@@ -49,6 +62,8 @@ namespace Car_with_database.Controllers
         public ActionResult TripList(string saddress, string szip, string scity, string daddress, string dzip, string dcity, DateTime time)
         {
             List<Trip> tlist = new List<Trip>();
+            Session["currentMethod"] = "TripList";
+            Session["currentController"] = "FindTrip";
 
             CarDatabaseEntities1 db = new CarDatabaseEntities1();
 

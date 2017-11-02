@@ -12,9 +12,9 @@
     <Property Name="destinationZip" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="destinationCity" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="time" Type="datetime" Nullable="false" />
-    <Property Name="driverID" Type="int" Nullable="false" />
     <Property Name="numberOfSeats" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" />
+    <Property Name="Passengers" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="User">
     <Key>

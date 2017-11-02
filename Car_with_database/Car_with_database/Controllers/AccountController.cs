@@ -28,7 +28,7 @@ namespace Car_with_database.Controllers
             local.isDriver = true;
             db.User.Add(user);
             db.SaveChanges();
-            Session.Add("User",local.UserID);
+            Session["User"] = local;
             return RedirectToAction("AccountDetails");
         }
         public ActionResult CreateAccount()

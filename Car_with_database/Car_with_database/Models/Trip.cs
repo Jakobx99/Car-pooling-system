@@ -6,9 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 using System.ComponentModel.DataAnnotations;
-
 namespace Car_with_database.Models
 {
     using System;
@@ -34,6 +32,7 @@ namespace Car_with_database.Models
         [Required]
         public int numberOfSeats { get; set; }
         public Nullable<int> UserID { get; set; }
+        public string Passengers { get; set; }
     
         public virtual User User { get; set; }
     }
