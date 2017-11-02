@@ -10,25 +10,20 @@ namespace Car_with_database.Controllers
 {
     public class AccountController : Controller
     {
-        CarDatabaseEntities1 db = new CarDatabaseEntities1();
 
         // GET: Account
+        //TODO:make POST
         public ActionResult EditAccount()
         {
-            User use = new User();
-
-            var user = from m in db.User
-                where m.UserID == 1
-                select m;
-
-            use = user.First();
-
+            User use = (User)Session["User"];
             return View(use);
         }
 
         [HttpPost]
         public ActionResult CreateAccount(User user)
         {
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
+
             User local = user;
             local.isDriver = true;
             db.User.Add(user);
@@ -42,25 +37,13 @@ namespace Car_with_database.Controllers
         }
         public ActionResult AccountDetails()
         {
-            User use1 = new User();
-            try
-            {
-                string userID = Session["User"].ToString();
-                int actual = int.Parse(userID);
-
-                var user = from m in db.User
-                           where m.UserID == actual
-                           select m;
-                use1 = user.First();
-            }
-            catch (Exception e)
-            {
-                //FAK SOME SQL ERROR HAPPENEND
-            }
+            User use1 = (User) Session["User"];
             return View(use1);
         }
         public ActionResult LoginAccount(string Username, string Password)
         {
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
+
             User use1 = new User();
 
             var user = from m in db.User
@@ -70,15 +53,22 @@ namespace Car_with_database.Controllers
             use1 = user.First();
             if (use1.password == Password)
             {
-                Session["Username"] = use1.userName;
-                Session["User"] = use1.UserID;
-                return View("~/Views/Home/Index.cshtml");
+                Session["User"] = use1;
+                Session["LoggedIn"] = true;
+                return RedirectToAction("Index", "Home");
             }
             return Login();
         }
         public ActionResult Login()
         {
-            return View("~/Views/Account/Login.cshtml");
+            return View("Login");
+        }
+        [HttpPost]
+        public ActionResult LogOff()
+        {
+            Session["LoggedIn"] = false;
+            Session["User"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
 

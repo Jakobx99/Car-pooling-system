@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Car_with_database.Models;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,26 +12,67 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Car pooling application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                    <li>@Html.ActionLink("Find trip", "SearchTrip", "FindTrip")</li>
-                    <li>@Html.ActionLink("Plan trip", "PlanTrip", "PlanTrip")</li>
-                    <li>@Html.ActionLink("Account", "AccountDetails", "Account")</li>
-                </ul>
-            </div>
-        </div>
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        @Html.ActionLink("Car pooling application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
     </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Login", "Login", "Account")</li>
+            <li>@Html.ActionLink("Find trip", "SearchTrip", "FindTrip")</li>
+            <li>@Html.ActionLink("Plan trip", "PlanTrip", "PlanTrip")</li>
+            <li>@Html.ActionLink("Account", "AccountDetails", "Account")</li>
+        </ul>
+
+        @{
+            if (Session["loggedIn"] == null || !((bool)Session["loggedIn"]))
+            {
+                <form class="form-inline" action="../LoginScript/LoginScript">
+                    <div class="form-group form-group-login col-sm-1,5">
+
+                        <input type="text" class="form-control" id="usernameLogIn" placeholder="Username" name="usernameLogIn">
+                    </div>
+                    <div class="form-group form-group-login col-sm-1,5">
+
+                        <input type="password" class="form-control" id="passwordLogIn" placeholder="Password" name="passwordLogIn">
+                    </div>
+                    <div class="checkbox">
+                        <label class="label-color" style="color: white">
+                            <input type="checkbox" id="rememberLogIn" /> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-success" onclick="getname">Log In</button>
+                </form>
+            }
+            else
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    User user = (User)Session["User"];
+                    @Html.AntiForgeryToken()
+                    <li class="btn-group nav">
+                        <button type="button" class="btn navbar-btn" style="background-color:white">@user.userName</button>
+                        <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="../Account/AccountDetails">Edit Profile</a></li>
+                        </ul>
+                    </li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                Log off
+                                <span class="glyphicon glyphicon-log-out"></span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+            }
+        }
+    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -38,7 +80,5 @@
             <p>&copy; @DateTime.Now.Year - Car pooling application</p>
         </footer>
     </div>
-
-
 </body>
 </html>

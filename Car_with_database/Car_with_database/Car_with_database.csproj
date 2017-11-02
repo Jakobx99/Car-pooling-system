@@ -153,6 +153,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FindTripController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginScriptController.cs" />
     <Compile Include="Controllers\PlanTripController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,6 +246,7 @@
     <Content Include="Views\PlanTrip\PlanTrip.cshtml" />
     <Content Include="Views\Account\AccountDetails.cshtml" />
     <Content Include="Views\PlanTrip\SpecificTrip.cshtml" />
+    <Content Include="Views\LoginScript\LoginScript.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

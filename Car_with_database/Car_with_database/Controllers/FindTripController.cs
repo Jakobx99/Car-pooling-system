@@ -12,7 +12,6 @@ namespace Car_with_database.Controllers
 {
     public class FindTripController : Controller
     {
-        CarDatabaseEntities1 db = new CarDatabaseEntities1();
 
         // GET: FindTrip
         public ActionResult SearchTrip()
@@ -29,6 +28,8 @@ namespace Car_with_database.Controllers
         [HttpPost]
         public ActionResult SpecificTrip(string id)
         {
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
+
             int i = Convert.ToInt32(id);
             var result = from m in db.Trip
                          where m.TripID == i
@@ -48,7 +49,8 @@ namespace Car_with_database.Controllers
         public ActionResult TripList(string saddress, string szip, string scity, string daddress, string dzip, string dcity, DateTime time)
         {
             List<Trip> tlist = new List<Trip>();
-            
+
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
 
             if (!saddress.IsNullOrWhiteSpace())
             {

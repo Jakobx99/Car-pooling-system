@@ -9,7 +9,6 @@ namespace Car_with_database.Controllers
 {
     public class PlanTripController : Controller
     {
-        CarDatabaseEntities1 db = new CarDatabaseEntities1();
         // GET: PlanTrip
         public ActionResult PlanTrip()
         {
@@ -19,6 +18,7 @@ namespace Car_with_database.Controllers
         [HttpPost]
         public ActionResult PlanTrip(Trip trip)
         {
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
 
             Trip result = trip;
             result.driverID = 1;
