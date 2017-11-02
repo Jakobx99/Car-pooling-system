@@ -15,6 +15,7 @@ namespace Car_with_database.Models
     public partial class Trip
     {
         public int TripID { get; set; }
+        [Required]
         public string startingAddress { get; set; }
         [Required]
         public string startingZip { get; set; }
@@ -31,7 +32,7 @@ namespace Car_with_database.Models
         public int driverID { get; set; }
         [Required]
         public int numberOfSeats { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int UserID { get; set; }
         public string Passengers { get; set; }
     
         public virtual User User { get; set; }

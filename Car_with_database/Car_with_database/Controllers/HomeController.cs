@@ -15,6 +15,14 @@ namespace Car_with_database.Controllers
             Session["currentMethod"] = "Index";
             Session["currentController"] = "Home";
 
+            if (Session["User"] == null)
+            {
+                Session["LoggedIn"] = false;
+            }
+
+
+ 
+
 
             return View();
         }
