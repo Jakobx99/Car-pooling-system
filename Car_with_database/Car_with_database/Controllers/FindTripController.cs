@@ -21,9 +21,23 @@ namespace Car_with_database.Controllers
             return View();
         }
 
-
+       
         public ActionResult SpecificTrip(Trip t)
         {
+            Session["currentMethod"] = "SpecificTrip";
+            Session["currentController"] = "FindTrip";
+            return View(t);
+        }
+
+        [HttpGet]
+        public ActionResult SpecificTrip(int tripID)
+        {
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
+
+            var result = from m in db.Trip
+                where m.TripID == tripID
+                select m;
+            Trip t = result.First();
             Session["currentMethod"] = "SpecificTrip";
             Session["currentController"] = "FindTrip";
             return View(t);

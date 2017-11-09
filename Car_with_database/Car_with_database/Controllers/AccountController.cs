@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,10 +14,67 @@ namespace Car_with_database.Controllers
 
         // GET: Account
         //TODO:make POST
+        public ActionResult EditAccountInfo(string newFirstname, string newLastname, string newPassword, string repeatPassword, string newEmail)
+        {
+            if (string.IsNullOrWhiteSpace(newFirstname)&& string.IsNullOrWhiteSpace(newLastname) && string.IsNullOrWhiteSpace(newPassword) && string.IsNullOrWhiteSpace(newEmail))
+            {
+                return RedirectToAction("AccountDetails", "Account");
+            }
+            try
+            {
+                CarDatabaseEntities1 db = new CarDatabaseEntities1();
+                if (!string.IsNullOrWhiteSpace(newFirstname))
+                {
+                    ((User)Session["user"]).firstname = newFirstname;
+                    db.User.AddOrUpdate((User)Session["user"]);
+                    db.SaveChanges();
+                    return RedirectToAction("AccountDetails", "Account");
+                }
+                if (!string.IsNullOrWhiteSpace(newLastname))
+                {
+                    ((User)Session["user"]).firstname = newLastname;
+                    db.User.AddOrUpdate((User)Session["user"]);
+                    db.SaveChanges();
+                    return RedirectToAction("AccountDetails", "Account");
+                }
+                if (!string.IsNullOrWhiteSpace(newPassword) && newPassword.Equals(repeatPassword))
+                {
+                    ((User)Session["user"]).password = newPassword;
+                    db.User.AddOrUpdate((User)Session["user"]);
+                    db.SaveChanges();
+                    return RedirectToAction("AccountDetails", "Account");
+                }
+                if (!string.IsNullOrWhiteSpace(newEmail))
+                {
+                    ((User)Session["user"]).email = newEmail;
+                    db.User.AddOrUpdate((User)Session["user"]);
+                    db.SaveChanges();
+                    return RedirectToAction("AccountDetails", "Account");
+                }
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return View("Error");
+            }
+        }
+
         public ActionResult EditAccount()
         {
-            User use = (User)Session["User"];
-            return View(use);
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
+            List<Trip> usrTrips = new List<Trip>();
+            User usr = ((User)Session["user"]);
+            var triplistDriver = from m in db.Trip
+                where m.UserID == usr.UserID
+                select m;
+            var triplistPass = from m in db.Trip
+                where m.Passengers.Contains(usr.UserID.ToString())
+                select m;
+            usrTrips = triplistDriver.ToList();
+            usrTrips = usrTrips.Concat(triplistPass).ToList();
+            ViewBag.trip = usrTrips;
+            return View();
         }
 
         [HttpPost]
