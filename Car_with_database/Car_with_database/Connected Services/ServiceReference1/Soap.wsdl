@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetDriverNameOfTrip">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TripId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDriverNameOfTripResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDriverNameOfTripResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDriverNameOfTripSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDriverNameOfTrip" />
+  </wsdl:message>
+  <wsdl:message name="GetDriverNameOfTripSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDriverNameOfTripResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SoapSoap">
+    <wsdl:operation name="GetDriverNameOfTrip">
+      <wsdl:input message="tns:GetDriverNameOfTripSoapIn" />
+      <wsdl:output message="tns:GetDriverNameOfTripSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SoapSoap" type="tns:SoapSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDriverNameOfTrip">
+      <soap:operation soapAction="http://tempuri.org/GetDriverNameOfTrip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SoapSoap12" type="tns:SoapSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetDriverNameOfTrip">
+      <soap12:operation soapAction="http://tempuri.org/GetDriverNameOfTrip" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Soap">
+    <wsdl:port name="SoapSoap" binding="tns:SoapSoap">
+      <soap:address location="http://localhost:49210/Soap.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SoapSoap12" binding="tns:SoapSoap12">
+      <soap12:address location="http://localhost:49210/Soap.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -40,7 +40,13 @@ namespace Car_with_database.Controllers
             Trip t = result.First();
             Session["currentMethod"] = "SpecificTrip";
             Session["currentController"] = "FindTrip";
+            
+            //Instance of soap file
+            //Soap soap = new Soap();
+            //string drivername = soap.GetDriverNameOfTrip(tripID);
+
             return View(t);
+
         }
 
         [HttpPost]
