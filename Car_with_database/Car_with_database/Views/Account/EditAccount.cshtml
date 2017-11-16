@@ -2,10 +2,11 @@
 @using Car_with_database.Models
 @{
     ViewBag.Title = "EditAccount";
-    var tripList = ViewBag.trip as List<Trip>;
+    var DriverTrips = ViewBag.DriverTrips as List<Trip>;
+    var PassengerTrips = ViewBag.PassengerTrips as List<Trip>;
     User user = ((User)Session["User"]);
     Layout = "~/Views/Shared/_Layout.cshtml";
-}                                                 a
+}                                                 
 <body>
     <div class="container">
         <h2>Edit Account</h2>
@@ -50,8 +51,73 @@
 
         </table>
     </div>
+<div class="container">
+    <h3>Your Trips as driver</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Trip time</th>
+            <th>Starting address</th>
+            <th>Destination City</th>
+            <th>Destination Address</th>
+            <th>Destination Zip</th>
+            <th>Role</th>
+            <th>Free seats</th>
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            if (DriverTrips != null)
+            {
+                foreach (var trip in DriverTrips)
+                {
+
+                    <tr onclick="location.href = '@(Url.Action("SpecificTrip", "FindTrip", new {tripID = trip.TripID}))'">
+                        <td>
+                            @Html.DisplayFor(time => trip.time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(startadd => trip.startingAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(destcit => trip.destinationCity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(destadd => trip.destinationAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(zip => trip.destinationZip)
+                        </td>
+                        @{
+                            if (trip.UserID == user.UserID)
+                            {
+                                <td>
+                                    Driver
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Passenger
+                                </td>
+                            }
+                        }
+                        <td>
+                            @Html.DisplayFor(seats => trip.numberOfSeats)
+                        </td>
+
+                    </tr>
+
+                }
+            }
+
+        }
+
+        </tbody>
+    </table>
+</div>
     <div class="container">
-        <h3>Your Trips</h3>
+        <h3>Your Trips as passenger</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -66,9 +132,9 @@
             </thead>
             <tbody>
                 @{
-                    if (tripList != null)
+                    if (PassengerTrips != null)
                     {
-                        foreach (var trip in tripList)
+                        foreach (var trip in PassengerTrips)
                         {
 
                             <tr onclick="location.href = '@(Url.Action("SpecificTrip", "FindTrip", new {tripID = trip.TripID}))'">
@@ -91,7 +157,7 @@
                                     if (trip.UserID == user.UserID)
                                     {
                                         <td>
-                                             Driver
+                                            Driver
                                         </td>
                                     }
                                     else
@@ -107,8 +173,8 @@
 
                             </tr>
 
-                        }
-                    }
+                                        }
+                                    }
 
                 }
 
