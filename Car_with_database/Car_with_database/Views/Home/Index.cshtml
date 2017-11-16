@@ -1,30 +1,52 @@
 ﻿@{
-    ViewBag.Title = "Front page temp";
+    ViewBag.Title = "Frontpage";
 }
 
-<div class="row">
-    <div class="col-md-2">
-        <p>
-            Temp Create account
-        </p>
-        <p><a class="btn btn-default" href="../Account/CreateAccount">Create Account</a></p>
-    </div>
-    <div class="col-md-2">
-        <p>Temp Edit account</p>
-        <p><a class="btn btn-default" href="../Account/EditAccount">Edit Account</a></p>
-    </div>
-    <div class="col-md-2">
-        <p>Temp Find Trip</p>
-        <p><a class="btn btn-default" href="../FindTrip/SearchTrip">Search for Trip</a></p>
-    </div>
-    <div class="col-md-2">
-        <p>Temp Specific trip</p>
-        <p><a class="btn btn-default" href="../FindTrip/SpecificTrip">Specific trip</a></p>
-    </div>
-    <div class="col-md-2">
-        <p>Temp Plan a trip</p>
-        <p><a class="btn btn-default" href="../PlanTrip/PlanTrip">Plan trip</a></p>
-    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl>
+                        <dt>
+                            <h1>What is Carpooling?</h1>
+                        </dt>
+                        <dd>
+                            Carpooling is the sharing of car journeys so that more than one person travels in cars.
+                            By having more people using one vehicle, carpooling reduces each person's travel costs such as fuel costs, tolls, and the stress of driving.
+                            Carpooling is also a more environmentally friendly and sustainable way to travel as sharing journeys reduces air pollution, carbon emissions, traffic congestion on the roads, and the need for parking spaces.
 
-
+                        </dd>
+                        <dd>
+                            This website allows you to register your trips or to find a ride you can join for a unique experience on each trip, while helping the environment!
+                        </dd>
+                    </dl>
+                </div>
+                @{
+                    if (Session["loggedIn"] == null || !((bool)Session["loggedIn"]))
+                    {
+                        <div class="col-md-6" style="margin-top: 30px">
+                            <h5>In order to use the website functionality please login or create an account.</h5>
+                            <p>
+                                <a class="btn btn-default" href="../Account/CreateAccount">Create account</a>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6" style="margin-top: 30px">
+                            <p>Looking for a trip?</p>
+                            <p>
+                                <a class="btn btn-default" href="../FindTrip/SearchTrip">Search for Trip</a>
+                            </p>
+                            <p>Plan a trip</p>
+                            <p>
+                                <a class="btn btn-default" href="../PlanTrip/PlanTrip">Plan trip</a>
+                            </p>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
 </div>
