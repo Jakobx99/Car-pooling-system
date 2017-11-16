@@ -26,6 +26,7 @@ namespace Car_with_database.Controllers
         {
             Session["currentMethod"] = "SpecificTrip";
             Session["currentController"] = "FindTrip";
+            Session["driverID"] = t.UserID;
             return View(t);
         }
 
@@ -40,7 +41,7 @@ namespace Car_with_database.Controllers
             Trip t = result.First();
             Session["currentMethod"] = "SpecificTrip";
             Session["currentController"] = "FindTrip";
-            
+            Session["driverID"] = t.UserID;
             //Instance of soap file
             //Soap soap = new Soap();
             //string drivername = soap.GetDriverNameOfTrip(tripID);
@@ -74,7 +75,7 @@ namespace Car_with_database.Controllers
             db.Trip.AddOrUpdate(t);
             db.User.AddOrUpdate(u);
             db.SaveChanges();
-
+            Session["driverID"] = t.UserID;
             return RedirectToAction("SpecificTrip", "FindTrip", t);
         }
 
@@ -178,6 +179,30 @@ namespace Car_with_database.Controllers
             }
 
             return View(tlist);
+        }
+
+        public ActionResult cancelTrip(string id)
+        {
+            CarDatabaseEntities1 db = new CarDatabaseEntities1();
+            Session["currentMethod"] = "CancelTrip";
+            Session["currentController"] = "FindTrip";
+            User u = (User)Session["User"];
+
+
+            
+            int i = Convert.ToInt32(id);
+            var result = from m in db.Trip
+                where m.TripID == i
+                select m;
+            Trip t = result.First();
+
+
+
+            u.Trip.Remove(t);
+            db.Trip.Remove(t);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

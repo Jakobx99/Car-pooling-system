@@ -63,7 +63,8 @@ namespace Car_with_database.Controllers
         public ActionResult EditAccount()
         {
             CarDatabaseEntities1 db = new CarDatabaseEntities1();
-            List<Trip> usrTrips = new List<Trip>();
+            List<Trip> DriverTrips = new List<Trip>();
+            List<Trip> PassengerTrips = new List<Trip>();
             User usr = ((User)Session["user"]);
             var triplistDriver = from m in db.Trip
                 where m.UserID == usr.UserID
@@ -71,9 +72,10 @@ namespace Car_with_database.Controllers
             var triplistPass = from m in db.Trip
                 where m.Passengers.Contains(usr.UserID.ToString())
                 select m;
-            usrTrips = triplistDriver.ToList();
-            usrTrips = usrTrips.Concat(triplistPass).ToList();
-            ViewBag.trip = usrTrips;
+            DriverTrips = triplistDriver.ToList();
+            PassengerTrips = triplistPass.ToList();
+            ViewBag.DriverTrips = DriverTrips;
+            ViewBag.PassengerTrips = PassengerTrips;
             return View();
         }
 
